@@ -5,11 +5,12 @@ import { useState } from 'react';
 //2) create a date input for the date (only in the future)
 //3) create a select option with 3 options and 3 colors (completed, partially completed, not started)
 //and it should also work to modify an existing todo (later)
-const NewTodo = ({ existingTodo,back }) => {
+const NewTodo = ({ existingTodo, back, sendingTodoBack }) => {
   const [title, setTitle] = useState();
   const [date, setDate] = useState();
   const [priority, setPriority] = useState();
   const [todo, setTodo] = useState({});
+  const [error, setError] = useState('');
   const onTodoTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -24,13 +25,16 @@ const NewTodo = ({ existingTodo,back }) => {
     if (title && date && priority) {
       let newTodo = { title: title, date: date, priority: priority };
       setTodo(newTodo);
+      setError('');
+      sendingTodoBack(newTodo);
+    } else {
+      setError('all fields are required');
     }
   };
-  const onSettingSwitchButton = (e) =>{
+  const onSettingSwitchButton = (e) => {
     e.preventDefault();
     back();
-
-  }
+  };
 
   return (
     <div>
@@ -49,6 +53,7 @@ const NewTodo = ({ existingTodo,back }) => {
         <button onClick={onSettingSwitchButton}>Cancel</button>
         <button onClick={onCreatingTodo}>OK</button>
       </form>
+      {error}
     </div>
   );
 };
