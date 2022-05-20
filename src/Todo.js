@@ -66,9 +66,15 @@ const Todo = ({ title, date, priority, id, modifyATodo, todolist }) => {
           key={id}
           id={id}
         >
-          <div>{title}</div>
-          <div>{date}</div>
-          <div>{priority}</div>
+          <div className="todotitle">{title}</div>
+          <div className="tododate">DeadLine: {date}</div>
+          {priority === 'not started' ? (
+            <div className="notstarted"></div>
+          ) : priority === 'completed' ? (
+            <div className="completed"></div>
+          ) : priority === 'partly completed' ? (
+            <div className="partlycompleted"></div>
+          ) : null}
         </div>
       ) : (
         <div>
